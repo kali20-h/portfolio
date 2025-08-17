@@ -1,0 +1,209 @@
+<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Ajout de la bibliothèque 3D Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+
+
+
+    <!-- Éléments du curseur -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-trailer"></div>
+
+    <!-- HEADER & NAVIGATION -->
+    <header class="bg-[#1a2e27]/80 backdrop-blur-md shadow-lg fixed w-full top-0 z-50 border-b border-emerald-500/20">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="javascript:void(0)" onclick="showPage('home')" class="text-2xl font-bold">
+                <span class="accent-color">A</span>J<span class="accent-color">.</span>
+            </a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="javascript:void(0)" onclick="showPage('home')" class="nav-link hover:accent-color transition duration-300" data-page="home" data-lang="nav_home">Accueil</a>
+                <a href="javascript:void(0)" onclick="showPage('about')" class="nav-link hover:accent-color transition duration-300" data-page="about" data-lang="nav_about">À propos</a>
+                <a href="javascript:void(0)" onclick="showPage('projects')" class="nav-link hover:accent-color transition duration-300" data-page="projects" data-lang="nav_projects">Projets</a>
+                <a href="javascript:void(0)" onclick="showPage('skills')" class="nav-link hover:accent-color transition duration-300" data-page="skills" data-lang="nav_skills">Compétences</a>
+                <a href="javascript:void(0)" onclick="showPage('watch')" class="nav-link hover:accent-color transition duration-300" data-page="watch" data-lang="nav_watch">Veille</a>
+                <a href="javascript:void(0)" onclick="showPage('contact')" class="nav-link hover:accent-color transition duration-300" data-page="contact" data-lang="nav_contact">Contact</a>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="changeLanguage('fr')" class="p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a2e27] ring-accent-color"><img src="https://flagcdn.com/w20/fr.png" alt="Français"></button>
+                <button onclick="changeLanguage('en')" class="p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a2e27] ring-accent-color"><img src="https://flagcdn.com/w20/gb.png" alt="English"></button>
+                <button onclick="changeLanguage('pt')" class="p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a2e27] ring-accent-color"><img src="https://flagcdn.com/w20/pt.png" alt="Português"></button>
+                <button onclick="changeLanguage('nl')" class="p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#1a2e27] ring-accent-color"><img src="https://flagcdn.com/w20/nl.png" alt="Nederlands"></button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 container mx-auto px-6 relative z-10">
+
+        <!-- PAGE: ACCUEIL -->
+        <div id="home" class="page">
+            <section class="min-h-[calc(100vh-6rem)] flex items-center relative">
+                <div id="canvas-container"></div>
+                <!-- NOUVELLE MISE EN PAGE : md:flex-row-reverse pour mettre la photo à droite -->
+                <div class="w-full flex flex-col-reverse md:flex-row-reverse items-center justify-between gap-12 relative z-10">
+                    <div id="profile-pic-container" class="md:w-2/5 flex justify-center reveal relative overflow-hidden rounded-full" style="transition-delay: 600ms;">
+                        <img src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-8ef0-51f7-8559-95d779d8f46c/raw?se=2025-08-17T23%3A25%3A47Z&sp=r&sv=2024-08-04&sr=b&scid=8472de61-6999-56f1-9c53-d115b0e5ec3f&skoid=e9d2f8b1-028a-4cff-8eb1-d0e66fbefcca&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-08-17T22%3A25%3A42Z&ske=2025-08-18T22%3A25%3A42Z&sks=b&skv=2024-08-04&sig=rB6Emgq02/o2l3ToOrjGRqprTyMk5yaskwT6g6nHqGY%3D"  class="rounded-full shadow-2xl shadow-emerald-900/50 w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-slate-700 transition-all duration-300 hover:drop-shadow-[0_0_15px_rgba(16,185,129,0.6)]">
+                    </div>
+                    <div class="md:w-3/5 text-center md:text-left">
+                        <h1 class="text-4xl md:text-6xl font-bold leading-tight reveal">
+                            <span data-lang="hero_greeting">Bonjour, je suis</span><br>
+                            <span class="accent-color" id="typed-text"></span>
+                        </h1>
+                        <p class="mt-4 text-lg text-slate-400 reveal" style="transition-delay: 200ms;" data-lang="hero_subtitle">Étudiant en BTS SIO option SISR en Guyane.</p>
+                        <div class="mt-8 flex justify-center md:justify-start space-x-4 reveal" style="transition-delay: 400ms;">
+                            <a href="javascript:void(0)" onclick="showPage('projects')" class="bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-emerald-700 transition duration-300" data-lang="hero_cta1">Découvrir mes projets</a>
+                            <a href="javascript:void(0)" onclick="showPage('contact')" class="bg-slate-700 text-slate-100 font-bold py-3 px-6 rounded-lg hover:bg-slate-600 transition duration-300" data-lang="hero_cta2">Me contacter</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: À PROPOS -->
+        <div id="about" class="page">
+            <section class="py-20 relative overflow-hidden">
+                <canvas id="about-bg"></canvas>
+                <h2 class="text-3xl font-bold text-center mb-2 reveal" data-lang="about_title">À propos de moi</h2>
+                <div class="w-20 h-1 bg-accent-color mx-auto mb-12 reveal" style="transition-delay: 200ms;"></div>
+                <div class="max-w-4xl mx-auto text-slate-400 space-y-4 text-center relative z-10">
+                    <p class="reveal" style="transition-delay: 400ms;" data-lang="about_p1">Né et ayant grandi en Guyane, un territoire tourné vers l'avenir, j'ai développé très tôt une fascination pour la technologie qui nous connecte au monde. Le BTS SIO SISR a été pour moi le moyen de transformer cette passion en expertise : comprendre, déployer et protéger la colonne vertébrale de toute organisation moderne.</p>
+                    <p class="reveal" style="transition-delay: 600ms;" data-lang="about_p2">Je vise un poste d'administrateur systèmes et réseaux, avec une spécialisation en cybersécurité. Mon but est d'assurer la robustesse et l'intégrité des infrastructures, un défi crucial pour toutes les entreprises à l'ère du numérique.</p>
+                </div>
+            </section>
+        </div>
+        
+        <!-- PAGE: PROJETS -->
+        <div id="projects" class="page">
+            <section class="py-20">
+                <h2 class="text-3xl font-bold text-center mb-2 reveal" data-lang="projects_title">Mes Projets</h2>
+                <div class="w-20 h-1 bg-accent-color mx-auto mb-12 reveal" style="transition-delay: 200ms;"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Projet 2 -->
+                    <div class="glass-card rounded-lg shadow-lg p-6 flex flex-col transition duration-300 hover:border-emerald-400 reveal" style="transition-delay: 400ms;">
+                        <div class="project-image-container rounded-md shadow-md w-full mb-4">
+                            <img src="https://placehold.co/600x400/1e293b/10b981?text=Projet+AD" alt="Projet Active Directory">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2"><span data-lang="projects_year2">Deuxième Année</span>: <span data-lang="project2_title">Infrastructure Active Directory</span></h3>
+                        <p class="text-slate-400 mb-4 flex-grow" data-lang="project2_desc">Simulation de la création d'un réseau d'entreprise avec gestion centralisée des utilisateurs et des politiques de sécurité.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-emerald-500/20 text-emerald-300 text-xs font-semibold px-2.5 py-0.5 rounded transition-transform hover:scale-105">Windows Server</span>
+                            <span class="bg-amber-500/20 text-amber-300 text-xs font-semibold px-2.5 py-0.5 rounded transition-transform hover:scale-105">Active Directory</span>
+                        </div>
+                        <div class="flex items-center space-x-4 mt-auto">
+                            <a href="#" class="text-accent-color hover:underline" data-lang="projects_doc">Voir la documentation</a>
+                        </div>
+                    </div>
+                    <!-- Projet 1 -->
+                    <div class="glass-card rounded-lg shadow-lg p-6 flex flex-col transition duration-300 hover:border-emerald-400 reveal" style="transition-delay: 600ms;">
+                        <div class="project-image-container rounded-md shadow-md w-full mb-4">
+                            <img src="https://placehold.co/600x400/1e293b/10b981?text=Projet+Zabbix" alt="Projet Supervision">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2"><span data-lang="projects_year1">Première Année</span>: <span data-lang="project1_title">Service de Supervision Réseau</span></h3>
+                        <p class="text-slate-400 mb-4 flex-grow" data-lang="project1_desc">Mise en place d'une solution de monitoring (Zabbix) pour surveiller l'état de santé d'un parc de serveurs Linux et Windows.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                             <span class="bg-emerald-500/20 text-emerald-300 text-xs font-semibold px-2.5 py-0.5 rounded transition-transform hover:scale-105">Zabbix</span>
+                             <span class="bg-amber-500/20 text-amber-300 text-xs font-semibold px-2.5 py-0.5 rounded transition-transform hover:scale-105">Debian</span>
+                        </div>
+                        <div class="flex items-center space-x-4 mt-auto">
+                            <a href="#" class="text-accent-color hover:underline" data-lang="projects_video">Voir la vidéo</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: COMPÉTENCES -->
+        <div id="skills" class="page">
+             <section class="py-20">
+                <h2 class="text-3xl font-bold text-center mb-2 reveal" data-lang="skills_title">Mes Compétences</h2>
+                <div class="w-20 h-1 bg-accent-color mx-auto mb-12 reveal" style="transition-delay: 200ms;"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card p-6 rounded-lg shadow-lg transition duration-300 hover:border-emerald-400 reveal" style="transition-delay: 400ms;">
+                        <div class="flex items-center mb-4">
+                            <i data-feather="server" class="text-accent-color skill-icon"></i>
+                            <h3 class="text-xl font-bold ml-3" data-lang="skills_cat1">Systèmes d'Exploitation</h3>
+                        </div>
+                        <ul class="list-disc list-inside text-slate-400">
+                            <li>Windows Server (AD, GPO, DNS)</li>
+                            <li>Linux (Debian, Ubuntu)</li>
+                            <li>Scripting (PowerShell, Bash)</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card p-6 rounded-lg shadow-lg transition duration-300 hover:border-emerald-400 reveal" style="transition-delay: 600ms;">
+                        <div class="flex items-center mb-4">
+                            <i data-feather="share-2" class="text-accent-color skill-icon" style="animation-delay: 0.5s;"></i>
+                            <h3 class="text-xl font-bold ml-3" data-lang="skills_cat2">Réseaux</h3>
+                        </div>
+                        <ul class="list-disc list-inside text-slate-400">
+                            <li>Modèle OSI, TCP/IP</li>
+                            <li>Switching (VLANs), Routage</li>
+                            <li>Firewall (pfSense)</li>
+                        </ul>
+                    </div>
+                    <div class="glass-card p-6 rounded-lg shadow-lg transition duration-300 hover:border-emerald-400 reveal" style="transition-delay: 800ms;">
+                        <div class="flex items-center mb-4">
+                            <i data-feather="layers" class="text-accent-color skill-icon" style="animation-delay: 1s;"></i>
+                            <h3 class="text-xl font-bold ml-3" data-lang="skills_cat3">Virtualisation</h3>
+                        </div>
+                        <ul class="list-disc list-inside text-slate-400">
+                            <li>VMware vSphere / ESXi</li>
+                            <li>Proxmox</li>
+                            <li>Docker (Notions)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: VEILLE -->
+        <div id="watch" class="page">
+            <section class="py-20">
+                <h2 class="text-3xl font-bold text-center mb-2 reveal" data-lang="watch_title">Veille Technologique</h2>
+                <div class="w-20 h-1 bg-accent-color mx-auto mb-12 reveal" style="transition-delay: 200ms;"></div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="glass-card p-6 rounded-lg shadow-lg reveal watch-card" style="transition-delay: 400ms;">
+                        <i data-feather="cloud" class="mx-auto text-accent-color h-12 w-12"></i>
+                        <h3 class="text-xl font-bold my-2" data-lang="watch_topic1_title">Cloud Hybride</h3>
+                        <p class="text-slate-400" data-lang="watch_topic1_desc">Combinaison d'infrastructures locales et de services cloud (AWS, Azure).</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-lg shadow-lg reveal watch-card" style="transition-delay: 600ms;">
+                        <i data-feather="code" class="mx-auto text-accent-color h-12 w-12"></i>
+                        <h3 class="text-xl font-bold my-2" data-lang="watch_topic2_title">Infrastructure as Code</h3>
+                        <p class="text-slate-400" data-lang="watch_topic2_desc">Automatisation du déploiement avec des outils comme Terraform et Ansible.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-lg shadow-lg reveal watch-card" style="transition-delay: 800ms;">
+                        <i data-feather="shield" class="mx-auto text-accent-color h-12 w-12"></i>
+                        <h3 class="text-xl font-bold my-2" data-lang="watch_topic3_title">Cybersécurité Défensive</h3>
+                        <p class="text-slate-400" data-lang="watch_topic3_desc">Évolution des EDR et du Zero Trust Network Access (ZTNA).</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: CONTACT -->
+        <div id="contact" class="page">
+            <section class="py-20">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-2 reveal" data-lang="contact_title">Contact</h2>
+                    <div class="w-20 h-1 bg-accent-color mx-auto mb-12 reveal" style="transition-delay: 200ms;"></div>
+                    <p class="max-w-xl mx-auto text-slate-400 mb-8 reveal" style="transition-delay: 400ms;" data-lang="contact_intro">Un projet ? Une question ? N'hésitez pas à me contacter. Je serais ravi d'échanger avec vous.</p>
+                    <div class="flex justify-center items-center space-x-8 reveal" style="transition-delay: 600ms;">
+                        <a href="mailto:aboikoniejoel@gmail.com" class="text-slate-400 transition-all duration-300 hover:scale-110 hover:accent-color hover:drop-shadow-[0_0_12px_rgba(16,185,129,0.8)]"><i data-feather="mail" class="w-10 h-10"></i></a>
+                        <a href="https://www.linkedin.com/checkpoint/challenge/AgF_4RuXntjimwAAAZi6MuvWa7a0uHsUezVpharXtAGvcT08vLqipDg6Fk2cdbCkuJASxdHggUrWz2QZVThkKkKWov0WUQ?ut=0q748kbPlOsbU1" class="text-slate-400 transition-all duration-300 hover:scale-110 hover:accent-color hover:drop-shadow-[0_0_12px_rgba(16,185,129,0.8)]"><i data-feather="linkedin" class="w-10 h-10"></i></a>
+                        <a href="https://github.com/kali20-h" class="text-slate-400 transition-all duration-300 hover:scale-110 hover:accent-color hover:drop-shadow-[0_0_12px_rgba(16,185,129,0.8)]"><i data-feather="github" class="w-10 h-10"></i></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-transparent mt-20">
+        <div class="container mx-auto px-6 py-6 text-center text-slate-500">
+            <p>&copy; 2024 Aboikonie Joel. Tous droits réservés.</p>
+        </div>
+    </footer>
